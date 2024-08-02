@@ -13,7 +13,7 @@ m=n
 J1=2319 ! This is the interaction parameter between nearest-neighbours in J divided by the boltzmann factor
 J2=46 ! This is the interaction parameter between next-nearest-neighbours in J divided by the boltzmann factor
 a_lat_pat=2.456 ! The cell parameter in the layer of graphite
-c_lat_pat=3.3 ! The interlayer spacing between layres of graphite
+c_lat_pat=3.38 ! The interlayer spacing between layers of graphite
 
 allocate(coords(n,3),coordsnew(n,3))
 

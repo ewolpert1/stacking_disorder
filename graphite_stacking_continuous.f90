@@ -16,10 +16,10 @@ open(unit=10, file='parameters_continuous.txt', status='old', action='read', ios
         stop
     endif
 
-    do i = 1, 5
+    do a = 1, 5
         read(10, '(A)') line
         pos = scan(line, "=")  ! Find the position of the equals sign
-        select case(i)
+        select case(a)
             case(1)
                 read(line(pos+1:), *) n
             case(2)

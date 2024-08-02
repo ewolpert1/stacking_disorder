@@ -10,7 +10,7 @@ real,parameter :: pi=3.14159265359
 call Randomseed(seed)
 
 
-open(unit=10, file='parameters_conitnuous.txt', status='old', action='read', iostatus=iostatus)
+open(unit=10, file='parameters_continuous.txt', status='old', action='read', iostatus=iostatus)
     if (iostatus /= 0) then
         print *, 'Error opening file.'
         stop

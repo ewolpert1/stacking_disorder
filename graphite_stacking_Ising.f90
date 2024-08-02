@@ -10,8 +10,8 @@ call Randomseed(seed)
 n=1000 ! This is the number of layers in the structure
 m=n
 J1=46 ! This is the interaction parameter in J divided by the boltzmann factor
-a_lat_pat=2.446 ! The cell parameters in the layer of graphite
-c_lat_pat=3.324 ! The interlayer spacing between layres of graphite
+a_lat_pat=2.456 ! The cell parameter in the layer of graphite
+c_lat_pat=3.38 ! The interlayer spacing between layers of graphite
 
 allocate(coords(n,3),coordsnew(n,3))
 

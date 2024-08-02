@@ -16,25 +16,22 @@ open(unit=10, file='parameters_continuous.txt', status='old', action='read', ios
         stop
     endif
 
-    ! Reading n
-    read(10, '(A)') line
-    read(line, '(A,I)') line, n
-
-    ! Reading J1
-    read(10, '(A)') line
-    read(line, '(A,I)') line, J1
-
-    ! Reading J2
-    read(10, '(A)') line
-    read(line, '(A,I)') line, J2
-
-    ! Reading a_lat_pat
-    read(10, '(A)') line
-    read(line, '(A,F)') line, a_lat_pat
-
-    ! Reading c_lat_pat
-    read(10, '(A)') line
-    read(line, '(A,F)') line, c_lat_pat
+    do i = 1, 5
+        read(10, '(A)') line
+        pos = scan(line, "=")  ! Find the position of the equals sign
+        select case(i)
+            case(1)
+                read(line(pos+1:), *) n
+            case(2)
+                read(line(pos+1:), *) J1
+            case(3)
+                read(line(pos+1:), *) J2
+            case(4)
+                read(line(pos+1:), *) a_lat_pat
+            case(5)
+                read(line(pos+1:), *) c_lat_pat
+        end select
+    end do
 
     close(10)
 

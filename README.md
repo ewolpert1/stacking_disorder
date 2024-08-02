@@ -1,4 +1,4 @@
-This repository contains code to simulate the stacking disorder in graphite using the Ising model or a model with continuous degrees of freedom as explained in the paper XXX.
+This repository contains code written in fortran which simulates the stacking disorder in graphite using the Ising model or a model with continuous degrees of freedom as explained in the paper XXX.
 
 Running this code outputs cif files of graphite at different temperatures of the simulations. For the Ising/continuous model the cifs are labelled `phase_Ising_T.cif/phase_continuous_T.cif` where T is the temperature.
 

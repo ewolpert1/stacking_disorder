@@ -1,7 +1,8 @@
 program graphite_continuous
 implicit none
+character(len=100) :: line
 integer :: seed,E3,E3flip,AcceptedQ,AcceptedT,Rejected,Accepted0,AcceptedE,J4,E4,E4flip,sum
-integer a,iter,n,J1,nn,atest,axtest,nn1,iter2,nn2,nn3
+integer a,iter,n,J1,nn,atest,axtest,nn1,iter2,nn2,nn3,iostatus
 real i,j,k,x,y,z,H,Etot,m,rn1,rn2,Q,T,E1flip,E2flip,E1,E2,Energychange,J2,a_lat_pat,c_lat_pat
 real,allocatable ::coords(:,:),coordsnew(:,:)
 character (len=90) :: filename

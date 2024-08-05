@@ -9,7 +9,7 @@ character (len=90) :: filename
 real,parameter :: pi=3.14159265359
 call Randomseed(seed)
 
-
+! Read in the parameters for the simulations from the file 'parameters_continuous.txt'
 open(unit=10, file='parameters_continuous.txt', status='old', action='read', iostat=iostatus)
     if (iostatus /= 0) then
         print *, 'Error opening file.'
@@ -41,13 +41,7 @@ open(unit=10, file='parameters_continuous.txt', status='old', action='read', ios
     print *, 'Read a_lat_pat = ', a_lat_pat
     print *, 'Read c_lat_pat = ', c_lat_pat
 
-!n=1000
 m=n
-!J1=2319 ! This is the interaction parameter between nearest-neighbours in J divided by the boltzmann factor
-!J2=46 ! This is the interaction parameter between next-nearest-neighbours in J divided by the boltzmann factor
-!a_lat_pat=2.456 ! The cell parameter in the layer of graphite
-!c_lat_pat=3.38 ! The interlayer spacing between layers of graphite
-
 allocate(coords(n,3),coordsnew(n,3))
 
 ! Inititalise random system
@@ -130,7 +124,7 @@ do
 	  J2*cos(2*pi*(coords(atest,1)-coords(nn3,1)))*cos(2*pi*(coords(atest,2)-coords(nn3,2)))&
 		*cos(2*pi*((coords(nn3,1)-coords(atest,1))-(coords(nn3,2)-coords(atest,2))))
 
-	! Calculate the final energy
+	! Calculate the new energy for a given layer shift
 	E1flip=J1*cos(2*pi*(coordsnew(atest,1)-coords(nn,1)))*cos(2*pi*(coordsnew(atest,2)-coords(nn,2)))&
 		*cos(2*pi*((coordsnew(atest,1)-coords(nn,1))-(coordsnew(atest,2)-coords(nn,2))))- &
 	  J2*cos(2*pi*(coordsnew(atest,1)-coords(nn2,1)))*cos(2*pi*(coordsnew(atest,2)-coords(nn2,2)))&

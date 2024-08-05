@@ -8,6 +8,7 @@ integer,allocatable:: coords(:,:),coordsnew(:,:)
 character (len=90) :: filename
 call Randomseed(seed)
 
+! Read in the parameters for the simulations from the file 'parameters_Ising.txt'
 open(unit=10, file='parameters_Ising.txt', status='old', action='read', iostat=iostatus)
     if (iostatus /= 0) then
         print *, 'Error opening file.'
@@ -102,7 +103,7 @@ do
 	! Calculate the energy of the new state
 	E1flip=J1*coordsnew(atest,1)*coords(nn,1)+J1*coordsnew(atest,1)*coords(nn1,1)
 
-	! Calcualte energy change
+	! Calculate energy change
 	Energychange=E1flip-E1
 
 	! Metropolis criterion

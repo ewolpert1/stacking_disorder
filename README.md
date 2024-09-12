@@ -10,7 +10,7 @@ $$    H=J_1\sum_{\langle ij\rangle}\cos(2\pi \Delta x_{ij} )\cos(2\pi \Delta y_{
 
 where ($`x_i,y_i`$) and ($`x_j,y_j`$) represent the fractional coordinates of neighbouring layers (or next-nearest layers), $`i`$ and $`j`$, of graphite and $`\Delta x_{ij}=x_i-x_j`$, $`\Delta y_{ij}=y_i-y_j`$. For positive values of $`J_1`$ and $`J_2`$, the Hamiltonian is minimised for stacking arrangements of graphene sheets in an ABAB fashion.
 
-The parameters to used to generate the results from Fig 4a and 4b are give in the `parameters_Ising.txt` and `parameters_continuous.txt` respectively. These files are read in when running the two different fortran codes.
+The parameters to used to generate the results from Fig 4a and 4b are give in the `parameters_Ising.txt` and `parameters_continuous.txt` respectively where the interaction parameters $`J_1`$ and $`J_2`$ are given in $J$. These files are read in when running the two different fortran codes.
 
 Running this code outputs cif files of graphite at different temperatures of the simulations. For the Ising/continuous model the cifs are labelled `phase_Ising_T.cif/phase_continuous_T.cif` where T is the temperature.
 

@@ -1,21 +1,33 @@
 program graphite_continuous
-use iso_fortran_env, only: dp=>real64
+use iso_fortran_env, only: dp=>real64, int64
 implicit none
 character(len=100) :: line
+character(len=1024) :: restart_path
+real(dp) :: start_T=1000.0_dp, floor_T=0.0_dp
 integer :: seed,E3,E3flip,AcceptedQ,AcceptedT,Rejected,Accepted0,AcceptedE,J4,E4,E4flip,sum
-integer a,iter,n,nn,atest,axtest,nn1,iter2,nn2,nn3,iostatus,pos
+integer a,n,nn,atest,axtest,nn1,iter2,nn2,nn3,iostatus,pos
 real(dp) J1,i,j,k,x,y,z,H,Etot,m,rn1,rn2,Q,T,E1flip,E2flip,E1,E2,Energychange,J2,a_lat_pat,c_lat_pat
 real(dp),allocatable ::coords(:,:),coordsnew(:,:)
 character (len=90) :: filename
 real(dp),parameter :: pi=acos(-1.0_dp)
 integer :: nmoves,nstages,accepted_stage
-real(dp) :: Hcheck,drift
-nmoves=1000000;nstages=135
+integer(int64) :: iter
+real(dp) :: Hcheck,drift,cooling_ratio
+nmoves=1000000;nstages=135;cooling_ratio=.95_dp
 call get_command_argument(1,line);read(line,*)seed
 call get_command_argument(2,line)
 if(len_trim(line)>0)read(line,*)nmoves
 call get_command_argument(3,line)
 if(len_trim(line)>0)read(line,*)nstages
+call get_command_argument(4,line)
+if(len_trim(line)>0)read(line,*)cooling_ratio
+if(cooling_ratio<=0.or.cooling_ratio>=1)error stop 'Invalid cooling ratio'
+call get_command_argument(5,restart_path)
+call get_command_argument(6,line)
+if(len_trim(line)>0)read(line,*)start_T
+call get_command_argument(7,line)
+if(len_trim(line)>0)read(line,*)floor_T
+if(start_T<=0.or.floor_T<0.or.floor_T>start_T)error stop 'Invalid temperatures'
 call Randomseed(seed)
 
 ! Read in the parameters for the simulations from the file 'parameters_continuous.txt'
@@ -63,11 +75,19 @@ enddo
 
 
 
+if(len_trim(restart_path)>0)then
+ open(23,file=trim(restart_path),access='stream',form='unformatted',status='old',action='read')
+ read(23)coords
+ close(23)
+endif
+open(23,file='initial_state.bin',access='stream',form='unformatted',status='replace')
+write(23)coords
+close(23)
 open(21,file='stats.csv',status='replace')
 write(21,'(A)')'stage,T,J1,J2,energy_K,energy_check_K,energy_drift_K,acceptance'
 open(22,file='states.bin',access='stream',form='unformatted',status='replace')
 
-T=1000
+T=start_T
 
 ! Calculate the inital energy
 H=0
@@ -86,6 +106,9 @@ do a=1,n
 		*cos(2*pi*((coords(a,1)-coords(nn2,1))-(coords(a,2)-coords(nn2,2))))+H
 enddo
 Etot=H
+open(23,file='initial_energy_K.txt',status='replace')
+write(23,'(ES25.16)')H
+close(23)
 
 iter=0
 iter2=0
@@ -167,7 +190,7 @@ do
 		coords(atest,axtest)=coordsnew(atest,axtest)
 		AcceptedQ=AcceptedQ+1
 	endif
-	if (mod(iter,nmoves)==0) then
+	if (mod(iter,int(nmoves,int64))==0) then
 		iter2=iter2+1
 
         call check_energy(coords,n,J1,J2,Hcheck)
@@ -188,9 +211,9 @@ do
 		Accepted0=0
 		AcceptedE=0
 		! Write out the structure
-		write(filename,fmt = '(A17,F8.3,A4)')'phase_continuous_',T,'.cif'
+		write(filename,fmt = '(A17,F12.6,A4)')'phase_continuous_',T,'.cif'
 		open(10, file = filename, form='formatted')
-		write(10,'(A30,F8.3)') ' data_ Continuous_temperature_',T
+		write(10,'(A30,F12.6)') ' data_ Continuous_temperature_',T
 		write(10,*) '_audit_creation_method         "stacking_disorder Fortran; deterministic seeded revision"'
 		write(10,*) '_cell_length_a                   ',a_lat_pat
 		write(10,*) '_cell_length_b                   ',a_lat_pat
@@ -223,7 +246,7 @@ do
 		enddo
 
 		close(10)
-		T=T*0.95_dp
+		T=max(floor_T,T*cooling_ratio)
 	endif
 	if (iter2==nstages) then
 		print*,'Final total Energy from MC = ',Etot

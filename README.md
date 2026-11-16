@@ -10,9 +10,9 @@ $$    H=J_1\sum_{\langle ij\rangle}\cos(\pi \Delta x_{ij} )\cos(\pi \Delta y_{ij
 
 where ($`x_i,y_i`$) and ($`x_j,y_j`$) represent the fractional coordinates of neighbouring layers (or next-nearest layers), $`i`$ and $`j`$, of graphite and $`\Delta x_{ij}=x_i-x_j`$, $`\Delta y_{ij}=y_i-y_j`$. For positive values of $`J_1`$ and $`J_2`$, the Hamiltonian is minimised for stacking arrangements of graphene sheets in an ABAB fashion.
 
-Parameter files are provided in `fault_0.05`, `fault_0.16` and `fault_0.21`. Each directory contains `parameters_continuous.txt` and `parameters_Ising.txt`. The coupling inputs are the per-layer-carbon coefficients divided by Boltzmann’s constant, $\$J_\mathrm{code}=j/k_B$.
+Parameter files are provided in `fault_0.05`, `fault_0.16` and `fault_0.21`. Each directory contains `parameters_continuous.txt` and `parameters_Ising.txt`. The coupling inputs are the per-layer-carbon coefficients divided by Boltzmann’s constant, \$J_\mathrm{code}=j/k_B$.
 
-The calculations in the paper use 1,000 layers, 10 million attempted moves per temperature and 987 temperature stages from 1,000\,K to approximately 0.05\,K with three seeds: 1729, 2718 and 3141. 
+The calculations in the paper use 1,000 layers, 10 million attempted moves per temperature and 987 temperature stages from 1000 K to approximately 0.05 K with three seeds: 1729, 2718 and 3141. 
 
 The size of the unit cell, interlayer spacing, interaction parameters, and number of layers in the model can all be changed by editing the `parameters_Ising.txt` or `parameters_continuous.txt` files.
 

@@ -1,4 +1,4 @@
-This repository contains code written in fortran which uses Monte Carlo simulations to investigate the stacking disorder in graphite with the continuous and Ising models. The parameters of the models were derived from PBE+MBD calculations along with three stacking-fault energies from the literature: 0.05, 0.16, and 0.21 $\mathrm{meV}\,\mathrm{atom}^{-1}$ at the interface. `graphite_stacking_Ising.f90` simulates the stacking disorder of graphite using the Ising model:
+This repository contains code written in fortran which uses Monte Carlo simulations to investigate the stacking disorder in graphite with the continuous and Ising models. The parameters of the models were derived from PBE+MBD calculations along with three stacking-fault energies from the literature: 0.05, 0.16, and 0.21 $\mathrm{meV}\\mathrm{atom}^{-1}$ at the interface. `graphite_stacking_Ising.f90` simulates the stacking disorder of graphite using the Ising model:
 
 $$    H=J\sum_{\langle ij\rangle}S_iS_j$$
 

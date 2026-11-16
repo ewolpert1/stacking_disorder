@@ -1,4 +1,0 @@
-n=1000 ! This is the number of layers in the structure
-J1=63.7129148 ! This is the interaction parameter in J divided by the boltzmann factor
-a_lat_pat=2.456 ! The cell parameter in the layer of graphite
-c_lat_pat=3.38 ! The interlayer spacing between layers of graphite
